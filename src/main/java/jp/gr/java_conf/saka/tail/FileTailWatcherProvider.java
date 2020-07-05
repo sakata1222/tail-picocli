@@ -1,8 +1,8 @@
 package jp.gr.java_conf.saka.tail;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import java.nio.file.Path;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 @Singleton
 public class FileTailWatcherProvider implements IFileTailWatcherProvider {

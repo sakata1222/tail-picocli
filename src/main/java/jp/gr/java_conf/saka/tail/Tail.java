@@ -1,8 +1,8 @@
 package jp.gr.java_conf.saka.tail;
 
-import com.google.inject.Inject;
 import java.nio.file.Path;
 import java.util.concurrent.ThreadFactory;
+import javax.inject.Inject;
 
 public class Tail {
 
