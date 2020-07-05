@@ -7,40 +7,42 @@
  */
 
 plugins {
-    id 'application'
-    id "com.palantir.graal" version "0.7.1"
+  id 'application'
+  id "com.palantir.graal" version "0.7.1"
 }
 
 repositories {
-    // Use jcenter for resolving dependencies.
-    // You can declare any Maven/Ivy/file repository here.
-    jcenter()
+  // Use jcenter for resolving dependencies.
+  // You can declare any Maven/Ivy/file repository here.
+  jcenter()
 }
 
 mainClassName = 'jp.gr.java_conf.saka.tail.TailCli'
 
 graal {
-    mainClass 'jp.gr.java_conf.saka.tail.controller'
-    outputName 'tail'
-    javaVersion '11'
-    graalVersion '20.1.0'
+  mainClass 'jp.gr.java_conf.saka.tail.controller'
+  outputName 'tail'
+  javaVersion '11'
+  graalVersion '20.1.0'
 }
 
 dependencies {
-    implementation 'info.picocli:picocli:4.3.2'
-    implementation 'com.google.guava:guava:29.0-jre'
-    implementation group: 'com.google.inject', name: 'guice', version: '4.2.3'
+  implementation 'info.picocli:picocli:4.3.2'
+  implementation 'com.google.guava:guava:29.0-jre'
+  implementation group: 'com.google.dagger', name: 'dagger', version: '2.28.1'
 
-    // Use JUnit Jupiter API for testing.
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
-    testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.3.3'
-    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.16.1'
+  annotationProcessor 'com.google.dagger:dagger-compiler:2.28.1'
 
-    // Use JUnit Jupiter Engine for testing.
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
+  // Use JUnit Jupiter API for testing.
+  testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
+  testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.3.3'
+  testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.16.1'
+
+  // Use JUnit Jupiter Engine for testing.
+  testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
 }
 
 test {
-    // Use junit platform for unit tests
-    useJUnitPlatform()
+  // Use junit platform for unit tests
+  useJUnitPlatform()
 }

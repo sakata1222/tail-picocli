@@ -1,7 +1,5 @@
 package jp.gr.java_conf.saka.tail;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -10,6 +8,8 @@ import java.nio.file.StandardWatchEventKinds;
 import java.nio.file.WatchService;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 @Singleton
 public class FileTailWatcher implements IFileTailWatcher {
