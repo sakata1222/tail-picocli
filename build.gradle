@@ -8,7 +8,7 @@
 
 plugins {
   id 'application'
-  id "com.palantir.graal" version "0.7.1"
+  id "com.palantir.graal" version "0.7.1-9-gced34a0"
 }
 
 repositories {
@@ -16,14 +16,19 @@ repositories {
   // You can declare any Maven/Ivy/file repository here.
   jcenter()
 }
-
+sourceCompatibility = 11
+targetCompatibility = 11
 mainClassName = 'jp.gr.java_conf.saka.tail.TailCli'
 
 graal {
-  mainClass 'jp.gr.java_conf.saka.tail.controller'
+  mainClass mainClassName
   outputName 'tail'
   javaVersion '11'
-  graalVersion '20.1.0'
+  // "Unable to detect supported WINDOWS native software development toolchain"
+  // error occurs if 20.1.0 is used in JPN environment
+  graalVersion '20.0.0'
+  option '--no-fallback'
+  option '-H:+ReportExceptionStackTraces'
 }
 
 dependencies {
