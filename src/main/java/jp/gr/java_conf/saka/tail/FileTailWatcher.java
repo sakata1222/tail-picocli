@@ -8,6 +8,8 @@ import java.nio.file.StandardWatchEventKinds;
 import java.nio.file.WatchService;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -40,8 +42,10 @@ public class FileTailWatcher implements IFileTailWatcher {
       file.getParent().register(watcher, StandardWatchEventKinds.ENTRY_MODIFY);
       while (available.isAvailable()) {
         load(bis);
-        var key = watcher.take();
-        key.reset();
+        var key = watcher.poll(1, TimeUnit.SECONDS);
+        if (Objects.nonNull(key)) {
+          key.reset();
+        }
       }
     } catch (IOException e) {
       throw new UncheckedIOException(e);

@@ -8,7 +8,7 @@
 
 plugins {
   id 'application'
-  id "com.palantir.graal" version "0.7.1"
+  id "com.palantir.graal" version "0.7.1-10-gd3690b4"
 }
 
 repositories {
@@ -16,21 +16,27 @@ repositories {
   // You can declare any Maven/Ivy/file repository here.
   jcenter()
 }
-
+sourceCompatibility = 11
+targetCompatibility = 11
 mainClassName = 'jp.gr.java_conf.saka.tail.TailCli'
 
 graal {
-  mainClass 'jp.gr.java_conf.saka.tail.controller'
+  mainClass mainClassName
   outputName 'tail'
   javaVersion '11'
-  graalVersion '20.1.0'
+  // "Unable to detect supported WINDOWS native software development toolchain"
+  // error occurs if 20.1.0 is used in JPN environment
+  graalVersion '20.0.0'
+  option '--no-fallback'
+  option '-H:+ReportExceptionStackTraces'
 }
 
 dependencies {
-  implementation 'info.picocli:picocli:4.3.2'
+  implementation group: 'info.picocli', name: 'picocli', version: '4.4.0'
   implementation 'com.google.guava:guava:29.0-jre'
   implementation group: 'com.google.dagger', name: 'dagger', version: '2.28.1'
 
+  annotationProcessor group: 'info.picocli', name: 'picocli-codegen', version: '4.4.0'
   annotationProcessor 'com.google.dagger:dagger-compiler:2.28.1'
 
   // Use JUnit Jupiter API for testing.
