@@ -3,6 +3,8 @@ package jp.gr.java_conf.saka.tail;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -40,7 +42,7 @@ class FileTailWatcherTest {
     var key2 = mock(WatchKey.class);
     when(file.getParent()).thenReturn(parent);
     when(watchServiceProvider.newWatchService(file)).thenReturn(watcher);
-    when(watcher.take()).thenReturn(key1, key2);
+    when(watcher.poll(anyLong(), any())).thenReturn(key1, key2);
     when(opener.open(file)).thenReturn(dummyInput);
     when(dummyInput.readNBytes(1024)).thenReturn(
       "abc\n".getBytes(UTF_8),
@@ -110,7 +112,7 @@ class FileTailWatcherTest {
     var dummyInput = mock(BufferedInputStream.class);
     when(file.getParent()).thenReturn(parent);
     when(watchServiceProvider.newWatchService(file)).thenReturn(watcher);
-    when(watcher.take()).thenThrow(new InterruptedException());
+    when(watcher.poll(anyLong(), any())).thenThrow(new InterruptedException());
     when(opener.open(file)).thenReturn(dummyInput);
     when(dummyInput.readNBytes(1024)).thenReturn(
       "abc\n".getBytes(UTF_8),
